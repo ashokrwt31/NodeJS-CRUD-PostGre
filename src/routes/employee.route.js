@@ -20,4 +20,18 @@ router.post(
   Employee.newEmployee
 );
 
+router.delete(
+  "/:id",
+  UserValidation.userIdValidation(),
+  validate,
+  Employee.deleteEmployee
+);
+
+router.put(
+  "/:id",
+  UserValidation.updateUserValidation("updateUser"),
+  validate,
+  Employee.updateEmployeeInfo
+);
+
 module.exports = router;
