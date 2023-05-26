@@ -39,3 +39,30 @@ exports.getAllEmployee = async (req, res) => {
     res.send("Error: " + error);
   }
 };
+
+exports.deleteEmployee = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const response = await pool.query(
+      "DELETE FROM employees WHERE empId = $1",
+      [id]
+    );
+    res.json(`Employee ${id} deleted successfully`);
+  } catch (error) {
+    res.send("Error: " + error);
+  }
+};
+
+exports.updateEmployeeInfo = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { firstName, lastName, email, phoneNumber } = req.body;
+    const response = await pool.query(
+      "UPDATE employees SET firstName = $1,lastName=$2 ,email=$3, phoneNumber=$4  WHERE empId = $5",
+      [firstName, lastName, email, phoneNumber, id]
+    );
+    res.json("User updated successfully");
+  } catch (error) {
+    res.send("Error: " + error);
+  }
+};
